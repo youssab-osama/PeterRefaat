@@ -13,18 +13,40 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', () => {
         if (window.scrollY > 50) {
             header.style.padding = '0.75rem 0';
-            header.style.background = 'rgba(19, 19, 19, 0.9)';
+            header.style.background = 'rgba(19, 19, 19, 0.92)';
         } else {
             header.style.padding = '1.25rem 0';
-            header.style.background = 'rgba(53, 53, 52, 0.4)';
+            header.style.background = 'rgba(28, 27, 27, 0.6)';
         }
+        updateActiveNavLink();
     });
+
+    // Active nav-link tracking (highlight current section)
+    function updateActiveNavLink() {
+        const sections = document.querySelectorAll('section[id]');
+        const scrollPos = window.scrollY + 100;
+
+        sections.forEach(section => {
+            const top = section.offsetTop;
+            const bottom = top + section.offsetHeight;
+            const id = section.getAttribute('id');
+            const navLink = document.querySelector(`.nav-links a[href="#${id}"]`);
+
+            if (navLink) {
+                if (scrollPos >= top && scrollPos < bottom) {
+                    navLink.classList.add('active');
+                } else {
+                    navLink.classList.remove('active');
+                }
+            }
+        });
+    }
 
     // Mobile Menu Sidebar Toggle
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
     const closeMenuBtn = document.getElementById('close-menu');
     const navLinks = document.getElementById('nav-links');
-    
+
     if (mobileMenuBtn && navLinks) {
         // Open
         mobileMenuBtn.addEventListener('click', (e) => {
@@ -41,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Close on outside click
         document.addEventListener('click', (e) => {
-            if (navLinks.classList.contains('sidebar-active') && 
+            if (navLinks.classList.contains('sidebar-active') &&
                 !navLinks.contains(e.target)) {
                 navLinks.classList.remove('sidebar-active');
             }
@@ -55,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Intersection Observer for animations
+    // Intersection Observer for scroll-reveal animations
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
@@ -70,13 +92,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, observerOptions);
 
-    // Initial check for reveal elements
+    // Observe reveal elements — run after dynamic content is rendered
     function observeElements() {
         document.querySelectorAll('.reveal').forEach(el => {
             observer.observe(el);
         });
     }
 
-    // Small delay to ensure dynamic content is loaded
     setTimeout(observeElements, 500);
+
+    // Run once on load to set initial active link
+    updateActiveNavLink();
 });

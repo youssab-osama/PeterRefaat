@@ -7,6 +7,11 @@
     padding-top: 80px;
 }
 
+/* Hero image floats gently */
+.hero-image {
+    animation: float 5s ease-in-out infinite;
+}
+
 .algorithm-bg {
     position: absolute;
     top: 0;
@@ -78,6 +83,8 @@
     z-index: 1000;
     padding: 1.25rem 0;
     transition: all 0.3s ease;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
 }
 
 #main-header nav {
@@ -105,9 +112,32 @@
     font-weight: 500;
     font-size: 0.95rem;
     transition: color 0.3s ease;
+    position: relative;
+    padding-bottom: 2px;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary-gradient);
+    border-radius: var(--radius-full);
+    transition: width 0.3s ease;
 }
 
 .nav-links a:hover {
+    color: var(--primary);
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+    width: 100%;
+}
+
+.nav-links a.active {
     color: var(--primary);
 }
 

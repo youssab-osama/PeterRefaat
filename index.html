@@ -10,6 +10,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
+    <!-- Font Awesome CDN (for skill icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
     <!-- Core CSS -->
     <link rel="stylesheet" href="styles/main.css">
     
@@ -26,6 +29,9 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
+
+    <!-- Flying Code Background Canvas -->
+    <canvas id="code-rain-canvas"></canvas>
 
     <!-- Header / Navbar -->
     <header class="glass" id="main-header">
@@ -65,7 +71,7 @@
                 </div>
                 <div class="hero-image reveal">
                     <div class="image-wrapper">
-                        <img src="profile.jpg" alt="Peter Refaat">
+                        <img src="assets/profile.jpg" alt="Peter Refaat">
                         <div class="image-accent"></div>
                     </div>
                 </div>
@@ -173,5 +179,8 @@
     <script src="js/sections/experience.js"></script>
     <script src="js/sections/skills.js"></script>
     <script src="js/sections/projects.js"></script>
+
+    <!-- Background animation -->
+    <script src="js/codeRain.js"></script>
 </body>
 </html>

@@ -40,25 +40,31 @@ function initExperience() {
     const timeline = document.querySelector('.timeline');
     if (!timeline) return;
 
-    experienceData.forEach((item, index) => {
+    experienceData.forEach((item) => {
         const timelineItem = document.createElement('div');
         timelineItem.className = `timeline-item reveal ${item.verdict === 'ACCEPTED' ? 'active' : ''}`;
-        
+
+        const verdictBadge = item.verdict
+            ? `<span class="verdict-badge verdict-${item.verdict.toLowerCase()}">${item.verdict}</span>`
+            : '';
+
         timelineItem.innerHTML = `
             <div class="timeline-dot"></div>
-            <div class="timeline-content">
-                <div class="timeline-date">
-                    ${item.date}
-                    ${item.verdict ? `<span class="verdict-badge ${item.verdict.toLowerCase()}">${item.verdict}</span>` : ''}
+            <div class="timeline-content glass">
+                <div class="timeline-header">
+                    <div class="timeline-title-row">
+                        <h3 class="font-heading">${item.title}</h3>
+                        ${verdictBadge}
+                    </div>
+                    <div class="timeline-date">${item.date}</div>
                 </div>
-                <h3 class="font-heading">${item.title}</h3>
                 <div class="timeline-role">${item.role}</div>
                 <ul class="timeline-details">
                     ${item.details.map(detail => `<li>${detail}</li>`).join('')}
                 </ul>
             </div>
         `;
-        
+
         timeline.appendChild(timelineItem);
     });
 }
