@@ -129,21 +129,38 @@
 @media (max-width: 991px) {
     .nav-links {
         position: fixed;
-        right: -100%;
+        left: -100%;
         top: 0;
         width: 300px;
         height: 100vh;
         background: var(--bg-surface-low);
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 2rem;
-        transition: right 0.4s ease;
-        box-shadow: -5px 0 20px rgba(0, 0, 0, 0.5);
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding: 5rem 2rem 2rem 2rem;
+        transition: left 0.4s ease;
+        box-shadow: 5px 0 20px rgba(0, 0, 0, 0.5);
     }
     
     .nav-links.sidebar-active {
-        right: 0;
+        left: 0;
+    }
+    
+    .nav-links li {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    .nav-links li.nav-contact {
+        margin-top: auto;
+        margin-bottom: 0;
+    }
+
+    .nav-links li.nav-contact a.btn {
+        width: 100%;
+        text-align: center;
+        display: block;
+        padding: 1rem;
     }
     
     .close-menu-btn {

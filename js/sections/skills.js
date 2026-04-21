@@ -4,29 +4,44 @@
 
 const skillsData = [
     {
-        category: "Algorithms & DS",
-        icon: "brain-circuit",
-        items: ["Graph Theory", "Dynamic Programming", "Number Theory", "Segmentation", "Sorting"]
+        category: "Programming Languages",
+        icon: "fa-solid fa-file-code",
+        items: [
+            { name: "C++", icon: "fa-solid fa-c" },
+            { name: "Java", icon: "fa-brands fa-java" },
+            { name: "Python", icon: "fa-brands fa-python" },
+            { name: "JavaScript", icon: "fa-brands fa-js" },
+            { name: "C#", icon: "fa-brands fa-microsoft" }
+        ]
     },
     {
-        category: "Languages",
-        icon: "code",
-        items: ["C++ (Expert)", "Java", "Python", "JavaScript"]
-    },
-    {
-        category: "Backend",
-        icon: "server",
-        items: ["Node.js", "Express.js", "Oracle DBMS", "MongoDB", "JSON Storage"]
+        category: "Backend & Databases",
+        icon: "fa-solid fa-server",
+        items: [
+            { name: "Node.js", icon: "fa-brands fa-node-js" },
+            { name: "Express.js", icon: "fa-brands fa-node" },
+            { name: "Oracle DBMS", icon: "fa-solid fa-database" },
+            { name: "MongoDB", icon: "fa-solid fa-envira" }
+        ]
     },
     {
         category: "Systems & CS",
-        icon: "cpu",
-        items: ["Operating Systems", "Memory Management", "Synchronization", "Scheduling"]
+        icon: "fa-solid fa-microchip",
+        items: [
+            { name: "Data Structures", icon: "fa-solid fa-network-wired" },
+            { name: "Algorithms", icon: "fa-solid fa-project-diagram" },
+            { name: "OOP", icon: "fa-solid fa-cubes" },
+            { name: "DP & Trees", icon: "fa-solid fa-diagram-project" }
+        ]
     },
     {
-        category: "Mentorship",
-        icon: "users",
-        items: ["CP Instruction", "Resource Management", "Technical Training"]
+        category: "Tools & DevOps",
+        icon: "fa-solid fa-toolbox",
+        items: [
+            { name: "Git & GitHub", icon: "fa-brands fa-git-alt" },
+            { name: "Docker", icon: "fa-brands fa-docker" },
+            { name: "JIRA", icon: "fa-brands fa-jira" }
+        ]
     }
 ];
 
@@ -38,12 +53,12 @@ function initSkills() {
         const div = document.createElement('div');
         div.className = 'skill-category reveal';
         div.innerHTML = `
-            <h3 class="font-heading"><i data-lucide="${cat.icon}"></i> ${cat.category}</h3>
+            <h3 class="font-heading"><i class="${cat.icon}"></i> ${cat.category}</h3>
             <div class="skill-list">
                 ${cat.items.map(skill => `
                     <div class="skill-item">
-                        <i data-lucide="check-circle" class="skill-item-icon"></i>
-                        <span>${skill}</span>
+                        <i class="${skill.icon} skill-item-icon"></i>
+                        <span>${skill.name}</span>
                     </div>
                 `).join('')}
             </div>

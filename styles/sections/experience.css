@@ -1,6 +1,33 @@
-/* Experience Timeline */
+#experience {
+    position: relative;
+    padding: calc(var(--space-xl) * 2) 0;
+    overflow: hidden;
+}
+
+/* Background overlay with filters */
+#experience::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('../../assets/medal backg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    filter: brightness(0.8) contrast(1.1) saturate(0.7);
+    mix-blend-mode: darken;
+    pointer-events: none;
+    z-index: 0;
+    /* Keep behind content but above background color if needed */
+}
+
+/* Ensure the wrapper has a solid BG base if needed, or rely on root */
 .timeline {
     position: relative;
+    z-index: 1;
+    /* Stay above the pseudo-element background */
     max-width: 800px;
     margin: var(--space-md) auto;
     padding-left: 50px;
@@ -34,22 +61,29 @@
 }
 
 .timeline-item.active .timeline-dot {
-    background: #00FF00; /* CP Accepted Green */
+    background: #00FF00;
+    /* CP Accepted Green */
     box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
     border-color: #00FF00;
 }
 
 .verdict-badge {
-    display: inline-block;
-    padding: 4px 10px;
+    position: absolute;
+    left: -46px;
+    /* Align to the left beside the main dot/line */
+    top: 30px;
+    /* Sits just underneath the top dot */
+    padding: 2px 6px;
     border-radius: 4px;
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     font-weight: 800;
-    margin-left: 10px;
     background: rgba(0, 255, 0, 0.1);
     color: #4CAF50;
-    vertical-align: middle;
-    letter-spacing: 0.05em;
+    white-space: nowrap;
+    transform: rotate(-90deg);
+    transform-origin: left top;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+    z-index: 3;
 }
 
 .verdict-badge.running {
@@ -58,7 +92,9 @@
 }
 
 .timeline-content {
-    background: var(--bg-surface-low);
+    background: rgba(19, 19, 19, 0.85);
+    /* Slightly transparent to see medal */
+    backdrop-filter: blur(8px);
     padding: var(--space-md);
     border-radius: var(--radius-md);
     border: 1px solid var(--outline);
