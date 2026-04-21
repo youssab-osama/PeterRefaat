@@ -1,0 +1,100 @@
+/* Experience Timeline */
+.timeline {
+    position: relative;
+    max-width: 800px;
+    margin: var(--space-md) auto;
+    padding-left: 50px;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--bg-surface-high);
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: var(--space-lg);
+}
+
+.timeline-dot {
+    position: absolute;
+    left: -50px;
+    top: 0;
+    width: 16px;
+    height: 16px;
+    background: var(--bg-surface-high);
+    border: 2px solid var(--primary-alt);
+    border-radius: 50%;
+    z-index: 2;
+}
+
+.timeline-item.active .timeline-dot {
+    background: #00FF00; /* CP Accepted Green */
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+    border-color: #00FF00;
+}
+
+.verdict-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    margin-left: 10px;
+    background: rgba(0, 255, 0, 0.1);
+    color: #4CAF50;
+    vertical-align: middle;
+    letter-spacing: 0.05em;
+}
+
+.verdict-badge.running {
+    background: rgba(255, 193, 7, 0.1);
+    color: #FFC107;
+}
+
+.timeline-content {
+    background: var(--bg-surface-low);
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--outline);
+    transition: transform 0.3s ease;
+}
+
+.timeline-item:hover .timeline-content {
+    transform: translateX(10px);
+    border-color: var(--primary-alt);
+}
+
+.timeline-date {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-family: 'Space Grotesk', sans-serif;
+    margin-bottom: 0.5rem;
+}
+
+.timeline-content h3 {
+    font-size: 1.25rem;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+.timeline-role {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+.timeline-details {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    list-style-position: inside;
+}
+
+.timeline-details li {
+    margin-bottom: 0.5rem;
+}
