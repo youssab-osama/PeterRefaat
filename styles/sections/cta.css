@@ -1,68 +1,125 @@
-/* CTA Section */
+/* ===== CTA / Contact Section ===== */
 .cta-container {
     padding: var(--space-xl) var(--space-md);
     text-align: center;
     border-radius: var(--radius-xl);
     border: 1px solid var(--outline);
-    background: linear-gradient(rgba(170, 0, 170, 0.05), rgba(170, 0, 170, 0));
+    background: linear-gradient(135deg, rgba(170, 0, 170, 0.05) 0%, rgba(170, 0, 170, 0) 100%);
+    max-width: 700px;
+    margin: 0 auto;
 }
 
 .cta-container h2 {
-    font-size: clamp(2.5rem, 6vw, 4rem);
-    margin-bottom: 1rem;
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    margin-bottom: 0.75rem;
 }
 
 .cta-hook {
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     color: var(--primary);
     margin-bottom: 2.5rem;
-    font-weight: 700;
+    font-weight: 600;
+    opacity: 0.85;
 }
 
+/* Stack: email btn → separator → social row */
 .cta-actions {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2rem;
+    gap: 0;
+}
+
+.cta-actions > .btn {
+    min-width: 180px;
 }
 
 .cta-separator {
-    margin: 1.5rem 0 1rem;
+    margin: 1.5rem 0;
     color: var(--text-muted);
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.1rem;
-}
-
-.social-links {
-    display: flex;
-    gap: 2rem;
-}
-
-.social-links a {
-    color: var(--text-secondary);
-    transition: all 0.3s ease;
-    padding: 1rem;
-    background: var(--bg-surface-high);
-    border-radius: 50%;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
     display: flex;
     align-items: center;
+    gap: 1rem;
+    width: 100%;
+    max-width: 320px;
+}
+
+.cta-separator::before,
+.cta-separator::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--outline);
+    opacity: 0.5;
+}
+
+/* ---- Social link buttons ---- */
+.social-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
     justify-content: center;
 }
 
-.social-links a:hover {
+/* Each social button: icon + label, pill-shaped */
+.social-link-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    padding: 0.6rem 1.25rem;
+    background: var(--bg-surface-high);
+    border: 1px solid rgba(83, 65, 79, 0.5);
+    border-radius: var(--radius-xl);
+    color: var(--text-secondary);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    transition: all 0.25s ease;
+}
+
+.social-link-btn i {
+    font-size: 1.1rem;
+    line-height: 1;
+}
+
+.social-link-btn:hover {
     color: var(--primary);
-    transform: scale(1.1);
-    box-shadow: var(--primary-glow);
+    border-color: var(--primary-alt);
+    background: var(--bg-surface-highest);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(170, 0, 170, 0.15);
 }
 
-.social-links a i {
-    width: 32px;
-    height: 32px;
+/* LinkedIn — blue accent on hover */
+.social-link-btn[title="LinkedIn"]:hover {
+    color: #0a66c2;
+    border-color: #0a66c2;
+    box-shadow: 0 8px 20px rgba(10, 102, 194, 0.2);
 }
 
-/* Footer Section */
+/* WhatsApp — green accent on hover */
+.social-link-btn[title="+20 127 957 0580"]:hover {
+    color: #25d366;
+    border-color: #25d366;
+    box-shadow: 0 8px 20px rgba(37, 211, 102, 0.2);
+}
+
+/* GitHub — white/light on hover */
+.social-link-btn[title="GitHub"]:hover {
+    color: #e5e2e1;
+    border-color: #e5e2e1;
+    box-shadow: 0 8px 20px rgba(229, 226, 225, 0.1);
+}
+
+/* ===== Footer ===== */
 footer {
     padding: var(--space-lg) 0;
-    border-top: 1px solid var(--outline);
+    border-top: 1px solid rgba(83, 65, 79, 0.3);
     color: var(--text-muted);
+    font-size: 0.875rem;
 }

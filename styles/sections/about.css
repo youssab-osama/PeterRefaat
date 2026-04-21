@@ -1,12 +1,28 @@
-/* About Section */
+/* ===== About Section ===== */
 .about-grid {
-    display: flex;
-    flex-direction: column;
     max-width: 800px;
     margin: 0 auto;
-    text-align: center;
+    text-align: left;
 }
 
+.about-text h2 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin-bottom: 1.5rem;
+}
+
+.about-text p {
+    margin-bottom: 1.25rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+}
+
+/* CV button left-aligned */
+.about-text .btn {
+    margin-top: 0.5rem;
+    display: inline-flex;
+}
+
+/* Image (hero section) */
 .image-wrapper {
     position: relative;
     border-radius: var(--radius-lg);
@@ -18,13 +34,12 @@
     display: block;
     aspect-ratio: 1/1;
     object-fit: cover;
-    filter: grayscale(0.5);
-    transition: filter 0.5s ease;
+    /* transition: filter 0.5s ease; */
 }
 
-.image-wrapper:hover img {
+/* .image-wrapper:hover img {
     filter: grayscale(0);
-}
+} */
 
 .image-accent {
     position: absolute;
@@ -37,23 +52,8 @@
     z-index: -1;
 }
 
-.about-text h2 {
-    font-size: 3rem;
-    margin-bottom: 1.5rem;
-}
-
-.about-text p {
-    margin-bottom: 1.25rem;
-    color: var(--text-secondary);
-}
-
 @media (max-width: 768px) {
     .about-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .about-image {
-        max-width: 400px;
-        margin: 0 auto;
+        text-align: center;
     }
 }
