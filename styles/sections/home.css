@@ -106,6 +106,7 @@
     align-items: center;
 }
 
+/* All nav links */
 .nav-links a {
     text-decoration: none;
     color: var(--text-secondary);
@@ -116,10 +117,12 @@
     padding-bottom: 2px;
 }
 
-.nav-links a::after {
+/* Animated underline — only for plain links, NOT the Contact button */
+.nav-links a:not(.btn-nav-contact)::after {
     content: '';
     position: absolute;
-    bottom: -2px;
+    bottom: -4px;
+    /* small gap between text baseline and line */
     left: 0;
     width: 0;
     height: 2px;
@@ -128,17 +131,29 @@
     transition: width 0.3s ease;
 }
 
-.nav-links a:hover {
+.nav-links a:not(.btn-nav-contact):hover {
     color: var(--primary);
 }
 
-.nav-links a:hover::after,
-.nav-links a.active::after {
+.nav-links a:not(.btn-nav-contact):hover::after,
+.nav-links a:not(.btn-nav-contact).active::after {
     width: 100%;
 }
 
-.nav-links a.active {
+.nav-links a:not(.btn-nav-contact).active {
     color: var(--primary);
+}
+
+/* Specific styling for the Header Contact button */
+.btn-nav-contact {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    padding-bottom: 0.6rem !important;
+    /* override the 2px bottom padding from .nav-links a */
+    line-height: 1.6 !important;
+    /* prevent vertical text offset */
 }
 
 .mobile-menu-btn {
@@ -171,11 +186,11 @@
         transition: left 0.4s ease;
         box-shadow: 5px 0 20px rgba(0, 0, 0, 0.5);
     }
-    
+
     .nav-links.sidebar-active {
         left: 0;
     }
-    
+
     .nav-links li {
         width: 100%;
         margin-bottom: 1rem;
@@ -186,13 +201,22 @@
         margin-bottom: 0;
     }
 
-    .nav-links li.nav-contact a.btn {
-        width: 100%;
-        text-align: center;
-        display: block;
-        padding: 1rem;
+    /* Mobile sidebar: Contact button — full width, centered, no underline */
+    .btn-nav-contact {
+        width: 100% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+        padding: 1rem !important;
+        /* Explicitly kill any inherited pseudo-element */
+        padding-bottom: 1rem !important;
     }
-    
+
+    .btn-nav-contact::after {
+        display: none !important;
+    }
+
     .close-menu-btn {
         display: block;
     }

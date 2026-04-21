@@ -1,106 +1,82 @@
 /**
- * Main JS - Core Interactivity
+ * Main JS — Core Interactivity
+ * Handles: icons, header scroll shrink, mobile sidebar, active nav, scroll reveal
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize Lucide Icons
-    if (window.lucide) {
-        window.lucide.createIcons();
-    }
+    // ── Lucide Icons ─────────────────────────────────────────────────────────
+    if (window.lucide) window.lucide.createIcons();
 
-    // Header Scroll Effect
+    // ── Dynamic Footer Year ──────────────────────────────────────────────────
+    const yearEl = document.getElementById('current-year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+    // ── Header: shrink + tighten on scroll ────────────────────────────────────
     const header = document.getElementById('main-header');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            header.style.padding = '0.75rem 0';
-            header.style.background = 'rgba(19, 19, 19, 0.92)';
-        } else {
-            header.style.padding = '1.25rem 0';
-            header.style.background = 'rgba(28, 27, 27, 0.6)';
-        }
-        updateActiveNavLink();
-    });
 
-    // Active nav-link tracking (highlight current section)
-    function updateActiveNavLink() {
-        const sections = document.querySelectorAll('section[id]');
+    function onScroll() {
+        const scrolled = window.scrollY > 50;
+        header.style.padding  = scrolled ? '0.75rem 0' : '1.25rem 0';
+        header.style.background = scrolled
+            ? 'rgba(19, 19, 19, 0.92)'
+            : 'rgba(28, 27, 27, 0.6)';
+        highlightActiveSection();
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // ── Active nav-link: highlight the section currently in view ─────────────
+    function highlightActiveSection() {
         const scrollPos = window.scrollY + 100;
-
-        sections.forEach(section => {
-            const top = section.offsetTop;
+        document.querySelectorAll('section[id]').forEach(section => {
+            const top    = section.offsetTop;
             const bottom = top + section.offsetHeight;
-            const id = section.getAttribute('id');
-            const navLink = document.querySelector(`.nav-links a[href="#${id}"]`);
-
-            if (navLink) {
-                if (scrollPos >= top && scrollPos < bottom) {
-                    navLink.classList.add('active');
-                } else {
-                    navLink.classList.remove('active');
-                }
-            }
+            const link   = document.querySelector(`.nav-links a[href="#${section.id}"]`);
+            if (link) link.classList.toggle('active', scrollPos >= top && scrollPos < bottom);
         });
     }
 
-    // Mobile Menu Sidebar Toggle
-    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-    const closeMenuBtn = document.getElementById('close-menu');
-    const navLinks = document.getElementById('nav-links');
+    // Run once on load so the correct link is already highlighted
+    highlightActiveSection();
 
-    if (mobileMenuBtn && navLinks) {
-        // Open
-        mobileMenuBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            navLinks.classList.add('sidebar-active');
-        });
+    // ── Mobile sidebar ────────────────────────────────────────────────────────
+    const menuBtn   = document.querySelector('.mobile-menu-btn');
+    const closeBtn  = document.getElementById('close-menu');
+    const navLinks  = document.getElementById('nav-links');
 
-        // Close via exit button
-        if (closeMenuBtn) {
-            closeMenuBtn.addEventListener('click', () => {
-                navLinks.classList.remove('sidebar-active');
-            });
-        }
+    if (menuBtn && navLinks) {
+        const openSidebar  = ()  => navLinks.classList.add('sidebar-active');
+        const closeSidebar = ()  => navLinks.classList.remove('sidebar-active');
 
-        // Close on outside click
+        menuBtn.addEventListener('click',  (e) => { e.stopPropagation(); openSidebar(); });
+        closeBtn?.addEventListener('click', closeSidebar);
+
+        // Close when clicking outside the sidebar
         document.addEventListener('click', (e) => {
-            if (navLinks.classList.contains('sidebar-active') &&
-                !navLinks.contains(e.target)) {
-                navLinks.classList.remove('sidebar-active');
+            if (navLinks.classList.contains('sidebar-active') && !navLinks.contains(e.target)) {
+                closeSidebar();
             }
         });
 
-        // Close on link click
-        navLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('sidebar-active');
+        // Close when any nav link is clicked
+        navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', closeSidebar));
+    }
+
+    // ── Scroll-reveal (IntersectionObserver) ──────────────────────────────────
+    const revealObserver = new IntersectionObserver(
+        (entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    revealObserver.unobserve(entry.target);
+                }
             });
-        });
-    }
+        },
+        { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+    );
 
-    // Intersection Observer for scroll-reveal animations
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('active');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-
-    // Observe reveal elements — run after dynamic content is rendered
-    function observeElements() {
-        document.querySelectorAll('.reveal').forEach(el => {
-            observer.observe(el);
-        });
-    }
-
-    setTimeout(observeElements, 500);
-
-    // Run once on load to set initial active link
-    updateActiveNavLink();
+    // Wait briefly so dynamically-rendered section content exists in the DOM
+    setTimeout(() => {
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+    }, 500);
 });
